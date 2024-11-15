@@ -19,7 +19,11 @@
         var speed=searchParams.get('speed');
         if(speed==null || speed=='') speed=3;
         var account=searchParams.get('account');
-        if(account==null || account=='') account="<a class=\"left\" href=\"javascript:login()\">登录<\/a>";
+        var acc=account;
+        if(account==null || account==''){ 
+            acc="<a class=\"left\" href=\"javascript:login()\">登录<\/a>";
+            account='';
+        }
         function login(){
             email = prompt("请输入你的邮箱:","");
   		    if (email!="" && email!=null){
@@ -160,7 +164,7 @@
             </div>
         </div>
     
-    <h3 class="title">感谢有你,<script>document.write(account);</script></h3>
+    <h3 class="title">感谢有你,<script>document.write(acc);</script></h3>
 </body>
     <script type="text/javascript">
 	    function addpicture(){
