@@ -8,6 +8,25 @@
     <title>38中大头网</title>
     <meta charset="utf-8">
     <meta name="referrer" content="no-referrer">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        var hei=window.innerHeight*0.7;
+        const searchParams = new URLSearchParams(window.location.search);
+        var speed=searchParams.get('speed');
+        if(speed==null || speed=='') speed=3;
+        var account=searchParams.get('account');
+        if(account==null || account=='') account="<a class=\"left\" href=\"javascript:login()\">登录<\/a>";
+        function login(){
+            email = prompt("请输入你的邮箱:","");
+  		    if (email!="" && email!=null){
+    	    	window.location.replace("?account="+email+"&speed="+speed);
+    	    }
+        }
+    </script>
 </head>
 <style type="text/css">
     body{
@@ -18,11 +37,13 @@
     #carousel{
         margin: auto; /* 居中 */
         width: 100%; /* 设置宽度 */
+        height: 70%;
         position: relative; /* 相对定位 */
         overflow: hidden; /* 超出隐藏 */
     }
     #carousel img{
         width: 400px; /* 设定大小 按比例缩放 */
+        height: 70%;
     }
     #carousel > ul {
         display: flex; /* 图片处理为一行 */
@@ -33,7 +54,62 @@
         padding: 0;
         margin: 0;
         list-style:none; 
-    }h1,h2{color:orange;text-align:center;}
+    }.title{color:orange;text-align:center;}
+    .left{color:rgb(0, 255, 242);text-align:left;}
+    input {
+    outline-style: none;
+    border: 1px solid #c0c4cc;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    font-family: "Microsoft soft";
+    &:focus {
+        border-color: #f07b00;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px
+                rgba(0, 0, 0, 0.075),
+            #f07b00;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+            #f07b00;
+    }
+    }
+    .height {
+        }
+        
+        .search {
+            position: relative;
+            box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+        }
+        
+        .search input {
+            height: 55px;
+            text-indent: 25px;
+            border: 2px solid #d6d4d4
+        }
+        
+        .search input:focus {
+            box-shadow: none;
+            border: 2px solid blue
+        }
+        
+        .search .fa-search {
+            position: absolute;
+            top: 20px;
+            left: 16px
+        }
+        
+        .search button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: 45px;
+            width: 110px;
+            background: blue
+        }
+    </style>
 </style>
 <body>
     <!-- 轮播图容器 -->
@@ -63,16 +139,36 @@
             <li>
                 <img src="cho.png">
             </li>
-            <li>
+            <!-- <li>
                 <a href="javascript:addm()"><img src="anymore.jpg"></a>
-            </li>
+            </li> -->
         </ul>
     </div>
-	<h1>38 中 大头 网</h1>
-	<h2>感谢有你</h2>
+	<div>
+        <h1 class="title">
+            <a href="javascript:addpicture()" class="left">我要添加一个 </a> 38中大头网
+            <!-- <input id="spd" type="text" value="aaa"> -->
+            <!-- <script>document.write("<input id=\"spd\" type=\"text\" placeholder=\"改变速度（秒）\"");</script>
+            <button type="button"><a href="javascript:changespeed()">改变</a></button> -->
+        </h1>
+    </div>
+    
+        <div class="row height d-flex justify-content-center align-items-center">
+            <div class="col-md-8">
+                <div class="search"><i class="fa fa-search"></i>
+                    <script>document.write("<input id=\"spd\" type=\"text\" class=\"form-control\" placeholder=\"改变速度（秒）,当前速度"+speed+"s一张\">");</script> <button class="btn btn-primary" onclick="changespeed()">改变</button> </div>
+            </div>
+        </div>
+    
+    <h3 class="title">感谢有你,<script>document.write(account);</script></h3>
 </body>
     <script type="text/javascript">
-	function addm(){window.alert("发邮件给 ---- 38@middle.us.kg ----  谢谢\n售价：1CNY/张\n如果有优惠码，请在电子邮件后写上你的优惠码");}
+	    function addpicture(){
+            window.alert("发邮件给 ---- 38@middle.us.kg ----  谢谢\n售价：1CNY/张\n如果有优惠码，请在电子邮件后写上你的优惠码");
+        }function changespeed(){
+            var spdval=document.getElementById("spd").value;
+            window.location.replace("?account="+account+"&speed="+spdval);
+        }
         var imgArr = []; // 图片数组
         var curIndex = 0; // 当前显示图片
         var timer = null; // 定时器
@@ -101,8 +197,8 @@
 
         (function start() {
             var config = {
-                height: "480px", // 配置高度
-                interval: 3000 // 配置轮播时间间隔
+                height: hei+"px", // 配置高度
+                interval: speed*1000 // 配置轮播时间间隔
             }
             document.getElementById("carousel").style.height = config.height; // 将轮播容器高度设定
             document.querySelectorAll("#carousel img").forEach(v => imgArr.push(v)); // 获取所有图片组成数组
